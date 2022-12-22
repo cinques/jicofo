@@ -11,7 +11,7 @@ on:
 
 env:
   # Java version to use for the release
-  RELEASE_JAVA_VERSION: 8
+  RELEASE_JAVA_VERSION: 11
 
 jobs:
   build:
@@ -19,7 +19,7 @@ jobs:
 
     strategy:
       matrix:
-        java: [ 11, 17 ]
+        java: [ 11 ]
 
     name: Java ${{ matrix.java }}
 
@@ -35,7 +35,4 @@ jobs:
           cache: maven
 
       - name: Build and test with Maven
-        run: mvn verify -B -Pcoverage
-
-      - name: Upload coverage report
-        uses: codecov/codecov-action@v2
+        run: mvn install -Dassembly.skipAssembly=false
